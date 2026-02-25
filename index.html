@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Links NODO</title>
+
+  <link
+    rel="stylesheet"
+    href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css"
+  />
+
+  <style>
+    :root {
+      --nodo-bg: #f0fdff;
+      --nodo-primary: #26a7fc;
+      --nodo-card: #ffffff;
+      --nodo-text: #111827;
+      --nodo-muted: #111827;
+    }
+
+    html, body {
+      height: auto;
+    }
+
+    body {
+      min-height: 100vh;
+      background-color: var(--nodo-bg);
+      color: var(--nodo-text);
+      display: flex;
+      flex-direction: column;
+      margin: 0;
+    }
+
+    main {
+      flex: 1;
+    }
+
+    header {
+      text-align: center;
+      padding: 4rem 1rem 2rem 1rem;
+    }
+
+    header h1 {
+      margin-bottom: 0.5rem;
+      font-weight: 600;
+    }
+
+    header p {
+      color: var(--nodo-muted);
+    }
+
+    .list-container {
+      max-width: 760px;
+      margin: auto;
+      padding: 2rem 1rem 4rem 1rem;
+    }
+
+    .link-item {
+      background: var(--nodo-card);
+      border-radius: 14px;
+      padding: 1.2rem 1.5rem;
+      margin-bottom: 1rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
+      transition: all 0.2s ease;
+    }
+
+    .link-item:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.06);
+    }
+
+    .link-info h3 {
+      color: #111827;
+      margin: 0;
+      font-size: 1rem;
+    }
+
+    .link-info p {
+      margin: 0;
+      font-size: 0.85rem;
+      color: var(--nodo-muted);
+      word-break: break-all;
+    }
+
+    .link-item a {
+      background-color: var(--nodo-primary);
+      color: white;
+      border-radius: 8px;
+      padding: 0.5rem 1.2rem;
+      text-decoration: none;
+      font-size: 0.85rem;
+      font-weight: 500;
+      white-space: nowrap;
+    }
+
+    .link-item a:hover {
+      opacity: 0.9;
+    }
+
+    footer {
+      text-align: center;
+      padding: 2rem 1rem;
+      font-size: 0.8rem;
+      color: var(--nodo-muted);
+    }
+
+    @media (max-width: 640px) {
+      .link-item {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 1rem;
+      }
+
+      .link-item a {
+        width: 100%;
+        text-align: center;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <main>
+    <div class="list-container">
+
+      <div class="link-item">
+        <div class="link-info">
+          <h3>Pagina Principal</h3>
+          <p>https://nodo-paginaprincipal.up.railway.app/</p>
+        </div>
+        <a href="https://nodo-paginaprincipal.up.railway.app/" target="_blank">Acceder</a>
+      </div>
+
+      <div class="link-item">
+        <div class="link-info">
+          <h3>Noticias</h3>
+          <p>https://noticias-nodo.up.railway.app/</p>
+        </div>
+        <a href="https://noticias-nodo.up.railway.app/" target="_blank">Acceder</a>
+      </div>
+
+      <div class="link-item">
+        <div class="link-info">
+          <h3>Eventos</h3>
+          <p>https://calendario-nodo-front-production.up.railway.app/</p>
+        </div>
+        <a href="https://calendario-nodo-front-production.up.railway.app/" target="_blank">Acceder</a>
+      </div>
+
+      <div class="link-item">
+        <div class="link-info">
+          <h3>Coworking</h3>
+          <p>https://coworking-nodo-front-production.up.railway.app/</p>
+        </div>
+        <a href="https://coworking-nodo-front-production.up.railway.app/" target="_blank">Acceder</a>
+      </div>
+
+      <div class="link-item">
+        <div class="link-info">
+          <h3>Asistencia</h3>
+          <p>https://nodo.cc.gob.ar/asistencia/wp-login.php</p>
+        </div>
+        <a href="https://nodo.cc.gob.ar/asistencia/wp-login.php" target="_blank">Acceder</a>
+      </div>
+
+      <div class="link-item">
+        <div class="link-info">
+          <h3>Cursos + Inscripciones</h3>
+          <p>https://nodo.cc.gob.ar/cursos-admin/</p>
+        </div>
+        <a href="https://nodo.cc.gob.ar/cursos-admin/" target="_blank">Acceder</a>
+      </div>
+
+      <div class="link-item">
+        <div class="link-info">
+          <h3>Graduados</h3>
+          <p>En construcción</p>
+        </div>
+        <a href="#" aria-disabled="true">Próximamente</a>
+      </div>
+
+      <div class="link-item">
+        <div class="link-info">
+          <h3>Datos</h3>
+          <p>https://metabase-production-41b5.up.railway.app/</p>
+        </div>
+        <a href="https://metabase-production-41b5.up.railway.app/" target="_blank">Acceder</a>
+      </div>
+
+      <div class="link-item">
+        <div class="link-info">
+          <h3>Registro</h3>
+          <p>En construcción</p>
+        </div>
+        <a href="#" aria-disabled="true">Próximamente</a>
+      </div>
+
+    </div>
+  </main>
+
+  <footer>
+    © 2026 Links NODO
+  </footer>
+
+</body>
+</html>
