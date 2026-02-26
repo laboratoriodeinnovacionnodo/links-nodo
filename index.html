@@ -3,121 +3,361 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Links NODO</title>
+  <title>Direccion NODO</title>
 
-  <link
-    rel="stylesheet"
-    href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css"
-  />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
 
   <style>
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
     :root {
-      --nodo-bg: #f0fdff;
-      --nodo-primary: #26a7fc;
-      --nodo-card: #ffffff;
-      --nodo-text: #111827;
-      --nodo-muted: #111827;
+      --bg: #f0fdff;
+      --primary: #26a7fc;
+      --primary-dark: #0e8de0;
+      --card: #ffffff;
+      --text: #111827;
+      --muted: #6b7280;
+      --border: rgba(38, 167, 252, 0.12);
+      --shadow: 0 2px 20px rgba(38, 167, 252, 0.08);
+      --shadow-hover: 0 12px 40px rgba(38, 167, 252, 0.18);
     }
 
     html, body {
-      height: auto;
+      height: 100%;
     }
 
     body {
       min-height: 100vh;
-      background-color: var(--nodo-bg);
-      color: var(--nodo-text);
+      background-color: var(--bg);
+      color: var(--text);
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 400;
       display: flex;
       flex-direction: column;
-      margin: 0;
+      overflow-x: hidden;
+    }
+
+    /* Decorative background blobs */
+    body::before {
+      content: '';
+      position: fixed;
+      top: -200px;
+      right: -200px;
+      width: 600px;
+      height: 600px;
+      background: radial-gradient(circle, rgba(38, 167, 252, 0.12) 0%, transparent 70%);
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    body::after {
+      content: '';
+      position: fixed;
+      bottom: -150px;
+      left: -150px;
+      width: 500px;
+      height: 500px;
+      background: radial-gradient(circle, rgba(38, 167, 252, 0.08) 0%, transparent 70%);
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 0;
     }
 
     main {
       flex: 1;
+      position: relative;
+      z-index: 1;
     }
 
+    /* Header */
     header {
       text-align: center;
-      padding: 4rem 1rem 2rem 1rem;
+      padding: 4rem 1rem 1.5rem;
+    }
+
+    .logo-wrapper {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.75rem;
+      margin-bottom: 1.5rem;
+      opacity: 0;
+      animation: fadeDown 0.6s ease forwards;
+    }
+
+    .logo-dot {
+      width: 36px;
+      height: 36px;
+      background: var(--primary);
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 14px rgba(38, 167, 252, 0.4);
+    }
+
+    .logo-dot svg {
+      width: 20px;
+      height: 20px;
+      fill: white;
+    }
+
+    .logo-name {
+      font-family: 'Syne', sans-serif;
+      font-weight: 800;
+      font-size: 1.5rem;
+      letter-spacing: -0.02em;
+      color: var(--text);
     }
 
     header h1 {
-      margin-bottom: 0.5rem;
-      font-weight: 600;
+      font-family: 'Syne', sans-serif;
+      font-weight: 700;
+      font-size: clamp(1.6rem, 4vw, 2.4rem);
+      letter-spacing: -0.03em;
+      color: var(--text);
+      line-height: 1.15;
+      opacity: 0;
+      animation: fadeDown 0.6s ease 0.1s forwards;
+    }
+
+    header h1 span {
+      color: var(--primary);
     }
 
     header p {
-      color: var(--nodo-muted);
+      color: var(--muted);
+      font-size: 0.95rem;
+      margin-top: 0.6rem;
+      font-weight: 300;
+      opacity: 0;
+      animation: fadeDown 0.6s ease 0.2s forwards;
     }
 
+    /* Badge count */
+    .badge-count {
+      display: inline-block;
+      background: rgba(38, 167, 252, 0.1);
+      color: var(--primary);
+      font-size: 0.75rem;
+      font-weight: 500;
+      padding: 0.25rem 0.75rem;
+      border-radius: 999px;
+      border: 1px solid rgba(38, 167, 252, 0.2);
+      margin-top: 1.2rem;
+      opacity: 0;
+      animation: fadeDown 0.6s ease 0.3s forwards;
+    }
+
+    /* List */
     .list-container {
-      max-width: 760px;
-      margin: auto;
-      padding: 2rem 1rem 4rem 1rem;
+      max-width: 680px;
+      margin: 0 auto;
+      padding: 2rem 1.25rem 5rem;
     }
 
     .link-item {
-      background: var(--nodo-card);
-      border-radius: 14px;
-      padding: 1.2rem 1.5rem;
-      margin-bottom: 1rem;
+      background: var(--card);
+      border-radius: 16px;
+      padding: 1.1rem 1.4rem;
+      margin-bottom: 0.75rem;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
-      transition: all 0.2s ease;
+      gap: 1rem;
+      border: 1px solid var(--border);
+      box-shadow: var(--shadow);
+      transition: transform 0.22s ease, box-shadow 0.22s ease, border-color 0.22s ease;
+      opacity: 0;
+      animation: fadeUp 0.5s ease forwards;
+      cursor: default;
     }
 
     .link-item:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.06);
+      transform: translateY(-3px);
+      box-shadow: var(--shadow-hover);
+      border-color: rgba(38, 167, 252, 0.28);
+    }
+
+    /* Stagger animations */
+    .link-item:nth-child(1) { animation-delay: 0.30s; }
+    .link-item:nth-child(2) { animation-delay: 0.37s; }
+    .link-item:nth-child(3) { animation-delay: 0.44s; }
+    .link-item:nth-child(4) { animation-delay: 0.51s; }
+    .link-item:nth-child(5) { animation-delay: 0.58s; }
+    .link-item:nth-child(6) { animation-delay: 0.65s; }
+    .link-item:nth-child(7) { animation-delay: 0.72s; }
+    .link-item:nth-child(8) { animation-delay: 0.79s; }
+    .link-item:nth-child(9) { animation-delay: 0.86s; }
+
+    .link-left {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      min-width: 0;
+    }
+
+    /* Icon circle */
+    .link-icon {
+      width: 42px;
+      height: 42px;
+      min-width: 42px;
+      border-radius: 12px;
+      background: rgba(38, 167, 252, 0.08);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.1rem;
+      transition: background 0.2s;
+    }
+
+    .link-item:hover .link-icon {
+      background: rgba(38, 167, 252, 0.15);
+    }
+
+    .link-item.disabled .link-icon {
+      background: rgba(107, 114, 128, 0.08);
+    }
+
+    .link-info {
+      min-width: 0;
     }
 
     .link-info h3 {
-      color: #111827;
-      margin: 0;
-      font-size: 1rem;
+      font-family: 'Syne', sans-serif;
+      font-weight: 600;
+      font-size: 0.95rem;
+      color: var(--text);
+      letter-spacing: -0.01em;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
     }
 
     .link-info p {
-      margin: 0;
-      font-size: 0.85rem;
-      color: var(--nodo-muted);
-      word-break: break-all;
+      font-size: 0.775rem;
+      color: var(--muted);
+      font-weight: 300;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      max-width: 340px;
+      margin-top: 0.1rem;
     }
 
-    .link-item a {
-      background-color: var(--nodo-primary);
+    /* CTA Button */
+    .btn-access {
+      background: var(--primary);
       color: white;
-      border-radius: 8px;
-      padding: 0.5rem 1.2rem;
+      border: none;
+      border-radius: 10px;
+      padding: 0.5rem 1.15rem;
       text-decoration: none;
-      font-size: 0.85rem;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.8rem;
       font-weight: 500;
       white-space: nowrap;
+      cursor: pointer;
+      transition: background 0.2s, transform 0.15s, box-shadow 0.2s;
+      box-shadow: 0 3px 10px rgba(38, 167, 252, 0.3);
+      letter-spacing: 0.01em;
     }
 
-    .link-item a:hover {
-      opacity: 0.9;
+    .btn-access:hover {
+      background: var(--primary-dark);
+      transform: scale(1.03);
+      box-shadow: 0 6px 20px rgba(38, 167, 252, 0.4);
     }
 
+    .btn-access:active {
+      transform: scale(0.97);
+    }
+
+    /* Disabled state */
+    .link-item.disabled {
+      opacity: 0.6;
+    }
+
+    .btn-soon {
+      background: transparent;
+      color: var(--muted);
+      border: 1px solid rgba(107, 114, 128, 0.25);
+      border-radius: 10px;
+      padding: 0.5rem 1.15rem;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.8rem;
+      font-weight: 500;
+      white-space: nowrap;
+      cursor: not-allowed;
+      letter-spacing: 0.01em;
+    }
+
+    /* Divider label */
+    .section-label {
+      font-family: 'Syne', sans-serif;
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--muted);
+      padding: 1.5rem 0 0.6rem 0.2rem;
+      opacity: 0;
+      animation: fadeUp 0.5s ease 0.28s forwards;
+    }
+
+    /* Footer */
     footer {
       text-align: center;
-      padding: 2rem 1rem;
-      font-size: 0.8rem;
-      color: var(--nodo-muted);
+      padding: 1.5rem 1rem 2rem;
+      font-size: 0.78rem;
+      color: var(--muted);
+      font-weight: 300;
+      position: relative;
+      z-index: 1;
     }
 
-    @media (max-width: 640px) {
+    footer::before {
+      content: '';
+      display: block;
+      width: 40px;
+      height: 2px;
+      background: var(--border);
+      margin: 0 auto 1rem;
+      border-radius: 2px;
+    }
+
+    /* Animations */
+    @keyframes fadeDown {
+      from { opacity: 0; transform: translateY(-14px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(14px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Mobile */
+    @media (max-width: 540px) {
       .link-item {
         flex-direction: column;
         align-items: flex-start;
-        gap: 1rem;
       }
 
-      .link-item a {
+      .btn-access, .btn-soon {
         width: 100%;
         text-align: center;
+        padding: 0.65rem 1rem;
+      }
+
+      .link-info p {
+        max-width: 100%;
       }
     }
   </style>
@@ -126,85 +366,134 @@
 <body>
 
   <main>
+    <header>
+      <div class="logo-wrapper">
+        <div class="logo-dot">
+          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="12" cy="12" r="4"/>
+            <circle cx="4" cy="6" r="2.5"/>
+            <circle cx="20" cy="6" r="2.5"/>
+            <circle cx="4" cy="18" r="2.5"/>
+            <circle cx="20" cy="18" r="2.5"/>
+            <line x1="12" y1="12" x2="4" y2="6" stroke="white" stroke-width="1.5"/>
+            <line x1="12" y1="12" x2="20" y2="6" stroke="white" stroke-width="1.5"/>
+            <line x1="12" y1="12" x2="4" y2="18" stroke="white" stroke-width="1.5"/>
+            <line x1="12" y1="12" x2="20" y2="18" stroke="white" stroke-width="1.5"/>
+          </svg>
+        </div>
+        <span class="logo-name">NODO</span>
+      </div>
+      <h1>Panel de accesos de la  <span>Direccion del Nodo tecnologico</span></h1>
+      <p>Todos los sistemas del ecosistema en un solo lugar.</p>
+      <span class="badge-count">7 servicios activos · 2 próximamente</span>
+    </header>
+
     <div class="list-container">
 
       <div class="link-item">
-        <div class="link-info">
-          <h3>Pagina Principal</h3>
-          <p>https://nodo-paginaprincipal.up.railway.app/</p>
+        <div class="link-left">
+          <div class="link-icon">🏠</div>
+          <div class="link-info">
+            <h3>Página Principal</h3>
+            <p>nodo-paginaprincipal.up.railway.app</p>
+          </div>
         </div>
-        <a href="https://nodo-paginaprincipal.up.railway.app/" target="_blank">Acceder</a>
+        <a class="btn-access" href="https://nodo-paginaprincipal.up.railway.app/" target="_blank">Acceder</a>
       </div>
 
       <div class="link-item">
-        <div class="link-info">
-          <h3>Noticias</h3>
-          <p>https://noticias-nodo.up.railway.app/</p>
+        <div class="link-left">
+          <div class="link-icon">📰</div>
+          <div class="link-info">
+            <h3>Noticias</h3>
+            <p>noticias-nodo.up.railway.app</p>
+          </div>
         </div>
-        <a href="https://noticias-nodo.up.railway.app/" target="_blank">Acceder</a>
+        <a class="btn-access" href="https://noticias-nodo.up.railway.app/" target="_blank">Acceder</a>
       </div>
 
       <div class="link-item">
-        <div class="link-info">
-          <h3>Eventos</h3>
-          <p>https://calendario-nodo-front-production.up.railway.app/</p>
+        <div class="link-left">
+          <div class="link-icon">📅</div>
+          <div class="link-info">
+            <h3>Eventos</h3>
+            <p>calendario-nodo-front-production.up.railway.app</p>
+          </div>
         </div>
-        <a href="https://calendario-nodo-front-production.up.railway.app/" target="_blank">Acceder</a>
+        <a class="btn-access" href="https://calendario-nodo-front-production.up.railway.app/" target="_blank">Acceder</a>
       </div>
 
       <div class="link-item">
-        <div class="link-info">
-          <h3>Coworking</h3>
-          <p>https://coworking-nodo-front-production.up.railway.app/</p>
+        <div class="link-left">
+          <div class="link-icon">💼</div>
+          <div class="link-info">
+            <h3>Coworking</h3>
+            <p>coworking-nodo-front-production.up.railway.app</p>
+          </div>
         </div>
-        <a href="https://coworking-nodo-front-production.up.railway.app/" target="_blank">Acceder</a>
+        <a class="btn-access" href="https://coworking-nodo-front-production.up.railway.app/" target="_blank">Acceder</a>
       </div>
 
       <div class="link-item">
-        <div class="link-info">
-          <h3>Asistencia</h3>
-          <p>https://nodo.cc.gob.ar/asistencia/wp-login.php</p>
+        <div class="link-left">
+          <div class="link-icon">✅</div>
+          <div class="link-info">
+            <h3>Asistencia</h3>
+            <p>nodo.cc.gob.ar/asistencia/wp-login.php</p>
+          </div>
         </div>
-        <a href="https://nodo.cc.gob.ar/asistencia/wp-login.php" target="_blank">Acceder</a>
+        <a class="btn-access" href="https://nodo.cc.gob.ar/asistencia/wp-login.php" target="_blank">Acceder</a>
       </div>
 
       <div class="link-item">
-        <div class="link-info">
-          <h3>Cursos + Inscripciones</h3>
-          <p>https://nodo.cc.gob.ar/cursos-admin/</p>
+        <div class="link-left">
+          <div class="link-icon">🎓</div>
+          <div class="link-info">
+            <h3>Cursos + Inscripciones</h3>
+            <p>nodo.cc.gob.ar/cursos-admin</p>
+          </div>
         </div>
-        <a href="https://nodo.cc.gob.ar/cursos-admin/" target="_blank">Acceder</a>
+        <a class="btn-access" href="https://nodo.cc.gob.ar/cursos-admin/" target="_blank">Acceder</a>
       </div>
 
       <div class="link-item">
-        <div class="link-info">
-          <h3>Graduados</h3>
-          <p>En construcción</p>
+        <div class="link-left">
+          <div class="link-icon">📊</div>
+          <div class="link-info">
+            <h3>Datos</h3>
+            <p>metabase-production-41b5.up.railway.app</p>
+          </div>
         </div>
-        <a href="#" aria-disabled="true">Próximamente</a>
+        <a class="btn-access" href="https://metabase-production-41b5.up.railway.app/" target="_blank">Acceder</a>
       </div>
 
-      <div class="link-item">
-        <div class="link-info">
-          <h3>Datos</h3>
-          <p>https://metabase-production-41b5.up.railway.app/</p>
+      <div class="link-item disabled">
+        <div class="link-left">
+          <div class="link-icon">🏅</div>
+          <div class="link-info">
+            <h3>Graduados</h3>
+            <p>En construcción</p>
+          </div>
         </div>
-        <a href="https://metabase-production-41b5.up.railway.app/" target="_blank">Acceder</a>
+        <span class="btn-soon">Próximamente</span>
       </div>
 
-      <div class="link-item">
-        <div class="link-info">
-          <h3>Registro</h3>
-          <p>En construcción</p>
+      <div class="link-item disabled">
+        <div class="link-left">
+          <div class="link-icon">📝</div>
+          <div class="link-info">
+            <h3>Registro</h3>
+            <p>En construcción</p>
+          </div>
         </div>
-        <a href="#" aria-disabled="true">Próximamente</a>
+        <span class="btn-soon">Próximamente</span>
       </div>
 
     </div>
   </main>
 
   <footer>
-    © 2026 Links NODO
+    © 2026 NODO · Todos los derechos reservados
   </footer>
 
 </body>
